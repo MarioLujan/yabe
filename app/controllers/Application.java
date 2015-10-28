@@ -41,7 +41,7 @@ public static void captcha(String id) {
 }
  
     
-    public static void postComment(
+public static void postComment(
         Long postId, 
         @Required(message="Author is required") String author, 
         @Required(message="A message is required") String content, 
@@ -61,5 +61,12 @@ public static void captcha(String id) {
     show(postId);
 }
     
-    
+
+public static void listTagged(String tag) {
+    List<Post> posts = Post.findTaggedWith(tag);
+    render(tag, posts);
+}
+ 
+
+
 }
