@@ -6,22 +6,27 @@ package models;
  
 import java.util.*;
 import javax.persistence.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
  
 import play.db.jpa.*;
+import play.data.validation.*;
  
 @Entity
 public class Comment extends Model {
- 
+     
+    @Required
     public String author;
+    
+    @Required
     public Date postedAt;
      
     @Lob
+    @Required
+    @MaxSize(10000)
     public String content;
     
     @ManyToOne
-    public Post post;
+    @Required
+    public Post post; 
     
     public Comment(Post post, String author, String content) {
         this.post = post;
@@ -46,7 +51,7 @@ public class Comment extends Model {
     List<Comment> bobPostComments = Comment.find("byPost", bobPost).fetch();
  
     // Tests
-    assertEquals(2, bobPostComments.size());
+    /*assertEquals(2, bobPostComments.size());
  
     Comment firstComment = bobPostComments.get(0);
     assertNotNull(firstComment);
@@ -58,7 +63,7 @@ public class Comment extends Model {
     assertNotNull(secondComment);
     assertEquals("Tom", secondComment.author);
     assertEquals("I knew that !", secondComment.content);
-    assertNotNull(secondComment.postedAt);
+    assertNotNull(secondComment.postedAt);*/
 }
  
 }
